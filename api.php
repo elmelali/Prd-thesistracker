@@ -625,7 +625,7 @@ try {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    error_log($e->getMessage());
+    error_log((string) $e);
     respond([
         'ok' => false,
         'error' => 'SERVER_ERROR',

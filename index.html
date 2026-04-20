@@ -813,9 +813,7 @@
         if (err.code === 'UNAUTHORIZED') {
           return;
         }
-        if (err.code !== 'UNAUTHORIZED') {
-          document.getElementById('loginAlert').textContent = 'تعذر الاتصال بالخادم.';
-        }
+        document.getElementById('loginAlert').textContent = 'تعذر الاتصال بالخادم.';
       }
     })();
   </script>
