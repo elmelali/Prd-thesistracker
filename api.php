@@ -624,6 +624,5 @@ try {
     respond([
         'ok' => false,
         'error' => 'SERVER_ERROR',
-        'message' => $e->getMessage(),
     ], 500);
 }
