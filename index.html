@@ -737,13 +737,14 @@
 
     async function search(query) {
       const container = document.getElementById('searchResults');
-      if (!query.trim()) {
+      const normalized = query.trim().slice(0, 120);
+      if (!normalized) {
         container.classList.add('hidden');
         container.innerHTML = '';
         return;
       }
 
-      const data = await api('search', { query: { q: query.trim() } });
+      const data = await api('search', { query: { q: normalized } });
       const items = data.results || [];
       if (!items.length) {
         container.innerHTML = '<div class="search-item muted">لا توجد نتائج</div>';
@@ -808,10 +809,11 @@
       try {
         await initializeApp();
       } catch (err) {
+        showLogin();
         if (err.code === 'UNAUTHORIZED') {
-          showLogin();
-        } else {
-          showLogin();
+          return;
+        }
+        if (err.code !== 'UNAUTHORIZED') {
           document.getElementById('loginAlert').textContent = 'تعذر الاتصال بالخادم.';
         }
       }

@@ -223,6 +223,10 @@ $mutatingActions = ['add_node', 'edit_node', 'delete_node', 'reorder_node', 'add
 
 try {
     if ($action === 'login') {
+        if (($config['auth']['password_hash'] ?? '') === '__SET_DURING_INSTALL__') {
+            respond(['ok' => false, 'error' => 'PASSWORD_NOT_CONFIGURED'], 503);
+        }
+
         $password = (string) ($input['password'] ?? '');
         if ($password === '' || !password_verify($password, $config['auth']['password_hash'])) {
             respond(['ok' => false, 'error' => 'INVALID_CREDENTIALS'], 401);
@@ -621,6 +625,7 @@ try {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
     }
+    error_log($e->getMessage());
     respond([
         'ok' => false,
         'error' => 'SERVER_ERROR',

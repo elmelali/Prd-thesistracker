@@ -12,7 +12,7 @@ return [
         'charset' => 'utf8mb4',
     ],
     'auth' => [
-        'password_hash' => getenv('THESIS_APP_PASSWORD_HASH') ?: '$2y$10$knyW5fCEd0NOxqeSg6Q7u.C9qPNzeQx1N4f6m5TXz9UAKtb4hWXQG',
+        'password_hash' => getenv('THESIS_APP_PASSWORD_HASH') ?: '__SET_DURING_INSTALL__',
         'session_lifetime_seconds' => (int) (getenv('THESIS_SESSION_LIFETIME') ?: 8 * 60 * 60),
     ],
     'install' => [
